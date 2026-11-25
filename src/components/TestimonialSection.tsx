@@ -13,7 +13,8 @@ export default function TestimonialSection() {
   const { ref, inView } = useInViewAnimation<HTMLElement>();
   const parallaxRef = useRef<HTMLImageElement | null>(null);
 
-  /* Parallax: the portrait drifts as the page scrolls (max offset 200px),
+  /* Parallax: the portrait drifts as the page scrolls (max offset 60px —
+     capped so the drifting portrait never covers the company names above it),
      driven by IntersectionObserver + scroll listener + requestAnimationFrame. */
   useEffect(() => {
     const img = parallaxRef.current;
@@ -25,7 +26,7 @@ export default function TestimonialSection() {
       const rect = img.getBoundingClientRect();
       const vh = window.innerHeight;
       const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-      const offset = Math.max(-200, Math.min(200, -progress * 200));
+      const offset = Math.max(-60, Math.min(60, -progress * 60));
       img.style.transform = `translateY(${offset.toFixed(1)}px)`;
     };
     const onScroll = () => {
